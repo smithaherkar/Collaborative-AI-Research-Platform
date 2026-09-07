@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Research Report & Critique | Collaborative AI Research Platform</title>
+  
+  <!-- Global Design System & Theme -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Marked.js CDN for client-side markdown parsing into styled HTML -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+  <!-- =========================================================================
+       Navigation Header
+       Provides quick link back to research dashboard, user status, and sign-out
+       ========================================================================= -->
+  <nav class="navbar">
+    <a href="index.html" class="brand">
+      <div class="brand-icon">🔬</div>
+      <div class="brand-text">ResearchAI</div>
+      <span class="brand-tag">Platform</span>
+    </a>
+    <div class="nav-actions">
+      <!-- Back button to return to dashboard search -->
+      <a href="index.html" class="btn btn-secondary btn-sm">← Back to Dashboard</a>
+      
+      <!-- User profile pill -->
+      <div class="user-badge">
+        <span class="user-dot"></span>
+        <span id="nav-user-email">Loading...</span>
+      </div>
+      <button id="nav-auth-btn" class="btn btn-secondary btn-sm">Sign Out</button>
+    </div>
+  </nav>
+
+  <!-- =========================================================================
+       Main Results View: Report + Critic Score Layout
+       ========================================================================= -->
+  <main class="main-container" id="results-view">
+    
+    <!-- Top Action Header -->
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem;">
+      <div>
+        <h1 style="font-size: 2rem; margin-bottom: 0.25rem;">Synthesized Research Report</h1>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+          Generated and peer-reviewed by the Multi-Agent Research System
+        </p>
+      </div>
+      
+      <!-- Quick Action Controls -->
+      <div style="display: flex; gap: 0.75rem;">
+        <button id="copy-btn" class="btn btn-secondary btn-sm">📋 Copy Report</button>
+        <a href="index.html" class="btn btn-primary btn-sm">✨ New Research</a>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         Two-Column Layout: Synthesized Report + Critic Review Card
+         ======================================================================= -->
+    <div class="report-grid">
+      
+      <!-- Left Column: Synthesized Markdown Report -->
+      <article class="report-body" id="report-content">
+        <div style="display: flex; align-items: center; gap: 0.75rem; color: var(--text-faint);">
+          <span class="spinner"></span>
+          <span>Loading synthesized research report...</span>
+        </div>
+      </article>
+
+      <!-- Right Column: Critic Peer-Review & Score Card -->
+      <aside class="critic-card">
+        <div class="score-badge-wrapper">
+          <div>
+            <h3 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Critic Evaluation</h3>
+            <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Peer Review</span>
+          </div>
+          <!-- Numeric quality score (/10) -->
+          <div id="critic-score" class="score-badge">--/10</div>
+        </div>
+
+        <div style="margin-bottom: 0.75rem; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">
+          Detailed Feedback & Verdict
+        </div>
+        
+        <!-- Qualitative critic notes & factual critique -->
+        <div id="critic-feedback" class="critic-content">
+          Loading evaluation feedback...
+        </div>
+      </aside>
+
+    </div>
+
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="footer">
+    Collaborative AI Research Platform &copy; 2026 &bull; Multi-Agent Intelligence
+  </footer>
+
+  <!-- Frontend application logic -->
+  <script src="script.js"></script>
+</body>
+</html>

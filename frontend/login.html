@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In | Collaborative AI Research Platform</title>
+  
+  <!-- Global Design System & Theme -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       Navigation Header
+       ========================================================================= -->
+  <nav class="navbar">
+    <a href="index.html" class="brand">
+      <div class="brand-icon">🔬</div>
+      <div class="brand-text">ResearchAI</div>
+      <span class="brand-tag">Platform</span>
+    </a>
+    <div class="nav-actions">
+      <!-- Quick link to register a new account -->
+      <a href="signup.html" class="btn btn-secondary btn-sm">Create Account</a>
+    </div>
+  </nav>
+
+  <!-- =========================================================================
+       Login Card & Form
+       Authenticates via FastAPI /login endpoint and saves JWT token
+       ========================================================================= -->
+  <div class="auth-container">
+    <div class="card">
+      <h2 style="margin-bottom: 0.5rem; text-align: center;">Welcome Back</h2>
+      <p style="color: var(--text-muted); font-size: 0.9rem; text-align: center; margin-bottom: 2rem;">
+        Sign in to access your research reports and agents
+      </p>
+
+      <form id="login-form">
+        <!-- Researcher Email -->
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" required placeholder="researcher@example.com" autocomplete="email">
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" required placeholder="Enter your password" autocomplete="current-password">
+        </div>
+
+        <!-- Submit Button (Triggers apiRequest in script.js) -->
+        <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1rem;">
+          Sign In
+        </button>
+      </form>
+
+      <!-- Account Switch Prompt -->
+      <p style="text-align: center; font-size: 0.875rem; color: var(--text-muted); margin-top: 1.5rem;">
+        Don't have an account? <a href="signup.html" style="color: var(--primary); text-decoration: none; font-weight: 500;">Sign up here</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Global Footer -->
+  <footer class="footer">
+    Collaborative AI Research Platform &copy; 2026 &bull; Multi-Agent Intelligence
+  </footer>
+
+  <!-- Frontend application logic -->
+  <script src="script.js"></script>
+</body>
+</html>

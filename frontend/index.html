@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard & Research | Collaborative AI Research Platform</title>
+  
+  <!-- Main application styles and design system -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       1. Global Header / Navigation Bar
+       Shows branding logo, active logged-in researcher email, and sign-out button
+       ========================================================================= -->
+  <nav class="navbar">
+    <a href="index.html" class="brand">
+      <div class="brand-icon">🔬</div>
+      <div class="brand-text">ResearchAI</div>
+      <span class="brand-tag">Platform</span>
+    </a>
+    <div class="nav-actions">
+      <!-- Dynamically filled with researcher email from localStorage -->
+      <div class="user-badge">
+        <span class="user-dot"></span>
+        <span id="nav-user-email">Loading...</span>
+      </div>
+      <button id="nav-auth-btn" class="btn btn-secondary btn-sm">Sign Out</button>
+    </div>
+  </nav>
+
+  <!-- =========================================================================
+       2. Main Content Container
+       ========================================================================= -->
+  <main class="main-container">
+    
+    <!-- Hero Introduction -->
+    <h1 class="hero-title">Collaborative AI Research</h1>
+    <p class="hero-subtitle">
+      Deploy an autonomous 4-stage multi-agent pipeline (Search, Reader, Writer, and Critic) to synthesize deep, fact-checked research reports.
+    </p>
+
+    <!-- Research Topic Query Submission Card -->
+    <div class="card">
+      <form id="research-form">
+        <div class="form-group">
+          <label for="topic-input" style="font-size: 1rem; font-weight: 600; color: #fff; margin-bottom: 0.5rem;">
+            What topic would you like to investigate?
+          </label>
+          <textarea 
+            id="topic-input" 
+            rows="3" 
+            required 
+            placeholder="e.g., Quantum Computing breakthroughs in drug discovery, or Next-Gen battery materials 2026..."
+            style="resize: vertical;"
+          ></textarea>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; margin-top: 1rem;">
+          <button type="submit" id="submit-btn" class="btn btn-primary" style="padding: 0.9rem 2rem; font-size: 1rem;">
+            <span>🚀</span> Run Research Pipeline
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- =======================================================================
+         3. Live Multi-Agent Execution Progress Tracker
+         Displays animated status cards for each agent in the LangGraph pipeline
+         ======================================================================= -->
+    <div id="progress-card" class="progress-card">
+      <div class="progress-header">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <span class="spinner"></span>
+          <h3 style="font-size: 1.2rem;">Multi-Agent Pipeline Executing...</h3>
+        </div>
+        <span style="font-size: 0.85rem; color: var(--text-muted);">Please wait while agents collaborate</span>
+      </div>
+
+      <div class="agent-steps">
+        <!-- Stage 1: Tavily Web Search Agent -->
+        <div id="step-search" class="agent-step">
+          <div class="step-icon">🔍</div>
+          <div class="step-info">
+            <span class="step-name">1. Search Agent</span>
+            <span class="step-desc">Tavily Web Search</span>
+          </div>
+        </div>
+
+        <!-- Stage 2: Deep Web Scraper / Reader Agent -->
+        <div id="step-reader" class="agent-step">
+          <div class="step-icon">📖</div>
+          <div class="step-info">
+            <span class="step-name">2. Reader Agent</span>
+            <span class="step-desc">Deep Page Scraping</span>
+          </div>
+        </div>
+
+        <!-- Stage 3: LLM Synthesis / Writer Agent -->
+        <div id="step-writer" class="agent-step">
+          <div class="step-icon">✍️</div>
+          <div class="step-info">
+            <span class="step-name">3. Writer Chain</span>
+            <span class="step-desc">Report Synthesis</span>
+          </div>
+        </div>
+
+        <!-- Stage 4: Peer Review / Critic Agent -->
+        <div id="step-critic" class="agent-step">
+          <div class="step-icon">⚖️</div>
+          <div class="step-info">
+            <span class="step-name">4. Critic Chain</span>
+            <span class="step-desc">Peer Review & Scoring</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         4. Research History Section
+         Dynamically populates previous queries and generated reports from PostgreSQL
+         ======================================================================= -->
+    <section class="history-section">
+      <h2 style="font-size: 1.35rem; margin-bottom: 0.5rem;">Your Research History</h2>
+      <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1rem;">
+        View your saved research requests and reports from PostgreSQL.
+      </p>
+
+      <!-- History cards injected here via script.js -->
+      <div id="history-list" class="history-list">
+        <div style="color: var(--text-faint); font-size: 0.9rem;">Loading history...</div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="footer">
+    Collaborative AI Research Platform &copy; 2026 &bull; FastAPI &bull; PostgreSQL &bull; LangGraph
+  </footer>
+
+  <!-- Frontend application logic -->
+  <script src="script.js"></script>
+</body>
+</html>

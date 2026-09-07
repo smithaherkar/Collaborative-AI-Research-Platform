@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up | Collaborative AI Research Platform</title>
+  
+  <!-- Global Design System & Theme -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       Navigation Header
+       ========================================================================= -->
+  <nav class="navbar">
+    <a href="index.html" class="brand">
+      <div class="brand-icon">🔬</div>
+      <div class="brand-text">ResearchAI</div>
+      <span class="brand-tag">Platform</span>
+    </a>
+    <div class="nav-actions">
+      <!-- Quick link to return to Sign In screen -->
+      <a href="login.html" class="btn btn-secondary btn-sm">Sign In</a>
+    </div>
+  </nav>
+
+  <!-- =========================================================================
+       Signup Registration Form
+       Validates passwords match and calls FastAPI /signup endpoint
+       ========================================================================= -->
+  <div class="auth-container">
+    <div class="card">
+      <h2 style="margin-bottom: 0.5rem; text-align: center;">Create Account</h2>
+      <p style="color: var(--text-muted); font-size: 0.9rem; text-align: center; margin-bottom: 2rem;">
+        Get started with collaborative multi-agent research
+      </p>
+
+      <form id="signup-form">
+        <!-- New Researcher Email -->
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" required placeholder="researcher@example.com" autocomplete="email">
+        </div>
+
+        <!-- Master Password -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" required placeholder="Minimum 6 characters" minlength="6" autocomplete="new-password">
+        </div>
+
+        <!-- Password Confirmation Check -->
+        <div class="form-group">
+          <label for="confirm_password">Confirm Password</label>
+          <input type="password" id="confirm_password" required placeholder="Repeat your password" minlength="6" autocomplete="new-password">
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1rem;">
+          Create Account
+        </button>
+      </form>
+
+      <!-- Existing User Link -->
+      <p style="text-align: center; font-size: 0.875rem; color: var(--text-muted); margin-top: 1.5rem;">
+        Already have an account? <a href="login.html" style="color: var(--primary); text-decoration: none; font-weight: 500;">Sign in here</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Global Footer -->
+  <footer class="footer">
+    Collaborative AI Research Platform &copy; 2026 &bull; Multi-Agent Intelligence
+  </footer>
+
+  <!-- Frontend application logic -->
+  <script src="script.js"></script>
+</body>
+</html>
