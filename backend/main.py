@@ -53,12 +53,12 @@ app.add_middleware(
 
 def extract_critic_score(feedback: Optional[str]) -> Optional[int]:
     """
-    Parses the numerical score out of the critic feedback (e.g., 'Score: 8/10' -> 8).
+    Parses the numerical score out of the critic feedback (e.g., 'Score: 8/10' or '**Score:** 8/10' -> 8).
     Returns None if the score pattern is not found.
     """
     if not feedback:
         return None
-    match = re.search(r"Score:\s*(\d+)", feedback, re.IGNORECASE)
+    match = re.search(r"(?:\*\*|\*)*Score(?:\*\*|\*)*\s*:\s*(\d+)", feedback, re.IGNORECASE)
     if match:
         try:
             return int(match.group(1))
@@ -220,3 +220,15 @@ def list_my_reports(
         .all()
     )
     return requests
+
+
+# ---------------------------------------------------------------------------
+# Serve Frontend Static Files directly from FastAPI
+# ---------------------------------------------------------------------------
+from pathlib import Path
+from fastapi.staticfiles import StaticFiles
+
+frontend_dir = Path(__file__).resolve().parent.parent / "frontend"
+if frontend_dir.exists():
+    app.mount("/", StaticFiles(directory=str(frontend_dir), html=True), name="frontend")
+

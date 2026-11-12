@@ -1,73 +1,172 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign In | Collaborative AI Research Platform</title>
-  
-  <!-- Global Design System & Theme -->
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Sign In | ResearchAI</title>
+
+  <!-- Google Fonts: Geist & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <!-- Material Symbols Outlined -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary": "#4cd7f6",
+            "surface-container-low": "#181b25",
+            "primary-fixed-dim": "#c0c1ff",
+            "inverse-primary": "#494bd6",
+            "on-background": "#dfe2ef",
+            "background": "#0f131c",
+            "surface": "#0f131c",
+            "surface-variant": "#31353f",
+            "on-surface": "#dfe2ef",
+            "surface-container-highest": "#31353f",
+            "surface-container-high": "#262a34",
+            "surface-container-lowest": "#0a0e17",
+            "outline": "#908fa0",
+            "surface-container": "#1c1f29",
+            "primary-container": "#8083ff",
+            "outline-variant": "#464554",
+            "primary": "#c0c1ff"
+          },
+          fontFamily: {
+            sans: ["Geist", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .ambient-glow {
+      background: radial-gradient(circle at 50% 35%, rgba(99, 102, 241, 0.18) 0%, rgba(79, 70, 229, 0.08) 40%, transparent 75%);
+    }
+  </style>
 </head>
-<body>
+<body class="bg-surface text-on-surface antialiased min-h-screen flex flex-col justify-between relative overflow-x-hidden font-sans">
+  <!-- Ambient Lighting -->
+  <div class="fixed inset-0 pointer-events-none z-0 ambient-glow"></div>
 
-  <!-- =========================================================================
-       Navigation Header
-       ========================================================================= -->
-  <nav class="navbar">
-    <a href="index.html" class="brand">
-      <div class="brand-icon">🔬</div>
-      <div class="brand-text">ResearchAI</div>
-      <span class="brand-tag">Platform</span>
-    </a>
-    <div class="nav-actions">
-      <!-- Quick link to register a new account -->
-      <a href="signup.html" class="btn btn-secondary btn-sm">Create Account</a>
+  <!-- Header -->
+  <header class="w-full relative z-20 px-6 py-4 flex justify-between items-center border-b border-outline-variant/15 backdrop-blur-md">
+    <div class="flex items-center gap-2">
+      <div class="w-7 h-7 rounded-lg bg-primary-container/20 border border-primary/30 flex items-center justify-center text-primary shadow-[0_0_12px_rgba(99,102,241,0.35)]">
+        <span class="material-symbols-outlined text-[16px]">hub</span>
+      </div>
+      <span class="text-base font-semibold tracking-tight text-on-surface">ResearchAI</span>
+      <span class="text-[9px] font-mono text-secondary bg-surface-container-high px-1.5 py-0.5 rounded border border-secondary/20 ml-1">PLATFORM</span>
     </div>
-  </nav>
+    <div>
+      <a href="signup.html" class="text-xs font-mono text-on-surface-variant hover:text-primary transition-colors">
+        Need an account? Register →
+      </a>
+    </div>
+  </header>
 
-  <!-- =========================================================================
-       Login Card & Form
-       Authenticates via FastAPI /login endpoint and saves JWT token
-       ========================================================================= -->
-  <div class="auth-container">
-    <div class="card">
-      <h2 style="margin-bottom: 0.5rem; text-align: center;">Welcome Back</h2>
-      <p style="color: var(--text-muted); font-size: 0.9rem; text-align: center; margin-bottom: 2rem;">
-        Sign in to access your research reports and agents
-      </p>
+  <!-- Central Auth Card -->
+  <main class="relative z-10 flex-1 flex items-center justify-center px-4 py-12">
+    <div class="relative w-full max-w-[440px]">
+      <div class="absolute -inset-1 bg-gradient-to-r from-primary-container/20 via-inverse-primary/25 to-secondary/15 rounded-2xl blur-xl opacity-70 pointer-events-none"></div>
 
-      <form id="login-form">
-        <!-- Researcher Email -->
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" required placeholder="researcher@example.com" autocomplete="email">
+      <div class="relative rounded-2xl bg-surface-container-lowest/90 backdrop-blur-xl border border-outline-variant/30 shadow-[0_4px_30px_rgba(0,0,0,0.85)] p-8">
+        
+        <div class="text-center mb-6">
+          <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-surface-container-high/80 border border-primary/30 text-primary mb-3 shadow-[0_0_20px_rgba(99,102,241,0.3)]">
+            <span class="material-symbols-outlined text-[24px]">smart_toy</span>
+          </div>
+          <h1 class="text-2xl font-bold text-on-surface tracking-tight mb-1">
+            Sign In to Swarm
+          </h1>
+          <p class="text-xs text-on-surface-variant max-w-sm mx-auto">
+            Access autonomous multi-agent pipelines & deep synthesis reports
+          </p>
         </div>
 
-        <!-- Password Field -->
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" required placeholder="Enter your password" autocomplete="current-password">
+        <!-- Tab Switcher -->
+        <div class="p-1 mb-6 rounded-lg bg-surface-container-lowest border border-outline-variant/20 flex gap-1">
+          <a href="login.html" class="flex-1 py-1.5 rounded-md text-center text-xs font-mono font-medium bg-surface-container-high text-primary shadow-sm border border-outline-variant/30">
+            Sign In
+          </a>
+          <a href="signup.html" class="flex-1 py-1.5 rounded-md text-center text-xs font-mono text-on-surface-variant hover:text-on-surface transition-colors">
+            Create Account
+          </a>
         </div>
 
-        <!-- Submit Button (Triggers apiRequest in script.js) -->
-        <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1rem;">
-          Sign In
-        </button>
-      </form>
+        <!-- Login Form -->
+        <form id="login-form" class="space-y-4">
+          <div>
+            <label class="block text-[11px] font-mono text-on-surface-variant uppercase tracking-wider mb-1.5" for="email">
+              Researcher Email
+            </label>
+            <div class="relative flex items-center">
+              <span class="absolute left-3 text-on-surface-variant flex items-center pointer-events-none">
+                <span class="material-symbols-outlined text-[18px]">mail</span>
+              </span>
+              <input 
+                type="email" 
+                id="email" 
+                required 
+                autocomplete="email" 
+                placeholder="researcher@organization.com"
+                class="w-full h-11 pl-10 pr-3 bg-surface-container-lowest rounded-lg border border-outline-variant/30 text-sm text-on-surface placeholder:text-outline focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all"
+              />
+            </div>
+          </div>
 
-      <!-- Account Switch Prompt -->
-      <p style="text-align: center; font-size: 0.875rem; color: var(--text-muted); margin-top: 1.5rem;">
-        Don't have an account? <a href="signup.html" style="color: var(--primary); text-decoration: none; font-weight: 500;">Sign up here</a>
-      </p>
+          <div>
+            <div class="flex justify-between items-center mb-1.5">
+              <label class="block text-[11px] font-mono text-on-surface-variant uppercase tracking-wider" for="password">
+                Password
+              </label>
+            </div>
+            <div class="relative flex items-center">
+              <span class="absolute left-3 text-on-surface-variant flex items-center pointer-events-none">
+                <span class="material-symbols-outlined text-[18px]">lock</span>
+              </span>
+              <input 
+                type="password" 
+                id="password" 
+                required 
+                autocomplete="current-password" 
+                placeholder="Enter your account password"
+                class="w-full h-11 pl-10 pr-3 bg-surface-container-lowest rounded-lg border border-outline-variant/30 text-sm text-on-surface placeholder:text-outline focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all"
+              />
+            </div>
+          </div>
+
+          <button 
+            type="submit" 
+            class="w-full h-11 mt-2 rounded-lg bg-gradient-to-b from-primary-container to-inverse-primary text-white text-sm font-medium flex items-center justify-center gap-2 shadow-[0_0_18px_rgba(99,102,241,0.4)] hover:shadow-[0_0_24px_rgba(99,102,241,0.6)] border border-white/20 active:scale-[0.99] transition-all cursor-pointer"
+          >
+            <span>Authenticate Session</span>
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          </button>
+        </form>
+
+        <p class="text-center text-xs text-on-surface-variant mt-6">
+          Don't have credentials? <a href="signup.html" class="text-primary hover:underline font-medium">Create researcher profile</a>
+        </p>
+
+      </div>
     </div>
-  </div>
+  </main>
 
-  <!-- Global Footer -->
-  <footer class="footer">
-    Collaborative AI Research Platform &copy; 2026 &bull; Multi-Agent Intelligence
+  <footer class="relative z-20 text-center py-4 text-xs font-mono text-outline border-t border-outline-variant/15">
+    ResearchAI Platform &copy; 2026 &bull; Multi-Agent Intelligence
   </footer>
 
-  <!-- Frontend application logic -->
+  <div id="toast" class="toast"></div>
   <script src="script.js"></script>
 </body>
 </html>

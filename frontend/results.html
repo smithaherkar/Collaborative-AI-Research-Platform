@@ -1,106 +1,271 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Research Report & Critique | Collaborative AI Research Platform</title>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>ResearchAI - Synthesized Research Report</title>
+
+  <!-- Google Fonts: Geist & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <!-- Material Symbols Outlined -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary": "#4cd7f6",
+            "on-secondary-fixed": "#001f26",
+            "surface-container-low": "#181b25",
+            "primary-fixed-dim": "#c0c1ff",
+            "secondary-fixed": "#acedff",
+            "inverse-primary": "#494bd6",
+            "on-background": "#dfe2ef",
+            "on-primary-fixed": "#07006c",
+            "background": "#0f131c",
+            "tertiary-fixed-dim": "#d0bcff",
+            "on-secondary-container": "#00424e",
+            "surface": "#0f131c",
+            "on-error-container": "#ffdad6",
+            "on-primary-container": "#0d0096",
+            "on-primary-fixed-variant": "#2f2ebe",
+            "surface-variant": "#31353f",
+            "on-tertiary": "#3c0091",
+            "on-secondary-fixed-variant": "#004e5c",
+            "on-secondary": "#003640",
+            "secondary-container": "#03b5d3",
+            "on-surface": "#dfe2ef",
+            "surface-container-highest": "#31353f",
+            "surface-bright": "#353943",
+            "tertiary-container": "#a078ff",
+            "on-primary": "#1000a9",
+            "primary-fixed": "#e1e0ff",
+            "surface-tint": "#c0c1ff",
+            "surface-dim": "#0f131c",
+            "surface-container-high": "#262a34",
+            "secondary-fixed-dim": "#4cd7f6",
+            "error": "#ffb4ab",
+            "inverse-on-surface": "#2c303a",
+            "surface-container-lowest": "#0a0e17",
+            "on-tertiary-container": "#340080",
+            "outline": "#908fa0",
+            "tertiary-fixed": "#e9ddff",
+            "surface-container": "#1c1f29",
+            "primary-container": "#8083ff",
+            "inverse-surface": "#dfe2ef",
+            "on-error": "#690005",
+            "tertiary": "#d0bcff",
+            "on-tertiary-fixed-variant": "#5516be",
+            "on-surface-variant": "#c7c4d7",
+            "on-tertiary-fixed": "#23005c",
+            "outline-variant": "#464554",
+            "primary": "#c0c1ff",
+            "error-container": "#93000a"
+          },
+          fontFamily: {
+            sans: ["Geist", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Project CSS (custom animations, states, markdown styling) -->
+  <link rel="stylesheet" href="style.css"/>
   
-  <!-- Global Design System & Theme -->
-  <link rel="stylesheet" href="style.css">
-  
-  <!-- Marked.js CDN for client-side markdown parsing into styled HTML -->
+  <!-- Marked.js Markdown parser -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
-<body>
+<body class="bg-surface text-on-surface antialiased min-h-screen selection:bg-primary-container selection:text-on-primary flex flex-col font-sans">
 
   <!-- =========================================================================
-       Navigation Header
-       Provides quick link back to research dashboard, user status, and sign-out
+       1. Top Navigation Bar
        ========================================================================= -->
-  <nav class="navbar">
-    <a href="index.html" class="brand">
-      <div class="brand-icon">🔬</div>
-      <div class="brand-text">ResearchAI</div>
-      <span class="brand-tag">Platform</span>
-    </a>
-    <div class="nav-actions">
-      <!-- Back button to return to dashboard search -->
-      <a href="index.html" class="btn btn-secondary btn-sm">← Back to Dashboard</a>
-      
-      <!-- User profile pill -->
-      <div class="user-badge">
-        <span class="user-dot"></span>
-        <span id="nav-user-email">Loading...</span>
-      </div>
-      <button id="nav-auth-btn" class="btn btn-secondary btn-sm">Sign Out</button>
+  <header class="bg-surface/80 backdrop-blur-md sticky top-0 z-50 border-b border-outline-variant/20 px-6 h-14 flex justify-between items-center w-full">
+    <div class="flex items-center gap-4">
+      <a href="index.html" class="flex items-center gap-2 text-decoration-none">
+        <div class="w-8 h-8 rounded-lg bg-surface-container-high border border-primary/30 flex items-center justify-center text-primary shadow-[0_0_12px_rgba(99,102,241,0.25)]">
+          <span class="material-symbols-outlined text-[18px]">hub</span>
+        </div>
+        <span class="text-lg font-semibold text-primary tracking-tight">ResearchAI</span>
+        <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-primary-container/20 text-primary border border-primary/30">REPORT</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-2 ml-4">
+        <a class="text-on-surface-variant hover:text-on-surface text-xs font-mono px-2 py-1 rounded transition-colors" href="index.html">← Back to Workspace</a>
+      </nav>
     </div>
-  </nav>
+
+    <!-- User Session & Logout -->
+    <div class="flex items-center gap-3">
+      <a href="index.html" class="px-3 py-1.5 rounded-lg bg-primary-container/20 border border-primary/40 text-primary hover:bg-primary-container/30 transition-colors text-xs font-medium flex items-center gap-1.5">
+        <span class="material-symbols-outlined text-[15px]">add</span>
+        <span>New Research</span>
+      </a>
+      <div class="flex items-center gap-2 px-2 py-1 rounded-lg bg-surface-container-high/60 border border-outline-variant/25">
+        <div class="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs">
+          <span class="material-symbols-outlined text-[14px]">person</span>
+        </div>
+        <span id="nav-user-email" class="text-xs font-medium text-on-surface max-w-[150px] truncate">Researcher</span>
+      </div>
+      <button id="nav-auth-btn" class="px-3 py-1.5 rounded-lg bg-surface-container border border-outline-variant/30 text-xs font-medium text-on-surface hover:border-primary/40 transition-colors">
+        Sign Out
+      </button>
+    </div>
+  </header>
 
   <!-- =========================================================================
-       Main Results View: Report + Critic Score Layout
+       2. Main Content Canvas
        ========================================================================= -->
-  <main class="main-container" id="results-view">
-    
-    <!-- Top Action Header -->
-    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem;">
-      <div>
-        <h1 style="font-size: 2rem; margin-bottom: 0.25rem;">Synthesized Research Report</h1>
-        <p style="color: var(--text-muted); font-size: 0.9rem;">
-          Generated and peer-reviewed by the Multi-Agent Research System
-        </p>
-      </div>
-      
-      <!-- Quick Action Controls -->
-      <div style="display: flex; gap: 0.75rem;">
-        <button id="copy-btn" class="btn btn-secondary btn-sm">📋 Copy Report</button>
-        <a href="index.html" class="btn btn-primary btn-sm">✨ New Research</a>
-      </div>
-    </div>
+  <main id="results-view" class="flex-1 w-full overflow-y-auto px-4 md:px-8 py-6 max-w-7xl mx-auto flex flex-col gap-6">
 
-    <!-- =======================================================================
-         Two-Column Layout: Synthesized Report + Critic Review Card
-         ======================================================================= -->
-    <div class="report-grid">
-      
-      <!-- Left Column: Synthesized Markdown Report -->
-      <article class="report-body" id="report-content">
-        <div style="display: flex; align-items: center; gap: 0.75rem; color: var(--text-faint);">
-          <span class="spinner"></span>
-          <span>Loading synthesized research report...</span>
-        </div>
-      </article>
-
-      <!-- Right Column: Critic Peer-Review & Score Card -->
-      <aside class="critic-card">
-        <div class="score-badge-wrapper">
-          <div>
-            <h3 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Critic Evaluation</h3>
-            <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Peer Review</span>
-          </div>
-          <!-- Numeric quality score (/10) -->
-          <div id="critic-score" class="score-badge">--/10</div>
-        </div>
-
-        <div style="margin-bottom: 0.75rem; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">
-          Detailed Feedback & Verdict
+    <!-- Header Section -->
+    <section class="pb-6 border-b border-outline-variant/15 flex flex-col gap-3">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2 text-xs font-mono text-on-surface-variant">
+          <a href="index.html" class="hover:text-on-surface cursor-pointer">Workspace</a>
+          <span class="text-outline-variant">/</span>
+          <span class="text-primary font-medium bg-primary-container/20 px-2 py-0.5 rounded border border-primary/30">Multi-Agent Synthesis</span>
         </div>
         
-        <!-- Qualitative critic notes & factual critique -->
-        <div id="critic-feedback" class="critic-content">
-          Loading evaluation feedback...
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary-container/10 border border-secondary/40 text-secondary text-[11px] font-mono shadow-[0_0_12px_-2px_rgba(6,182,212,0.35)]">
+          <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+          <span class="tracking-wide">SYNTHESIS COMPLETE</span>
         </div>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-on-surface">
+        Synthesized Research Report
+      </h1>
+      
+      <!-- Metadata Row -->
+      <div class="flex flex-wrap items-center gap-y-2 gap-x-6 text-xs font-mono text-on-surface-variant/80">
+        <div class="flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[16px] text-outline">neurology</span>
+          <span>Pipeline: <strong class="text-on-surface font-medium">4 Agents (Search, Reader, Writer, Critic)</strong></span>
+        </div>
+        <div class="flex items-center gap-1.5 text-secondary">
+          <span class="material-symbols-outlined text-[16px]">verified</span>
+          <span>Fact-Checking & Quality Review Passed</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Action Bar -->
+    <section class="flex flex-wrap items-center justify-between gap-3 bg-surface-container-lowest/80 border border-outline-variant/20 rounded-xl p-3 px-4 backdrop-blur-md">
+      <div class="flex items-center gap-2 text-xs font-mono text-outline">
+        <span class="material-symbols-outlined text-[16px] text-primary">auto_awesome</span>
+        <span>AI-Generated Technical Synthesis</span>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2">
+        <button id="copy-btn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high border border-outline-variant/25 text-on-surface text-xs font-medium transition-colors cursor-pointer" title="Copy markdown to clipboard">
+          <span class="material-symbols-outlined text-[16px] text-outline">content_copy</span>
+          <span>Copy Report</span>
+        </button>
+        <a href="index.html" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-b from-primary-container to-inverse-primary text-white border border-white/20 text-xs font-medium transition-all cursor-pointer">
+          <span class="material-symbols-outlined text-[16px]">search</span>
+          <span>New Query</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Two-Column Report Layout (Main Report + Critic Card) -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+      
+      <!-- Left Column: Synthesized Markdown Report -->
+      <section class="lg:col-span-2 bg-surface-container-low/90 border border-outline-variant/20 rounded-xl p-6 md:p-8 backdrop-blur-sm">
+        <div class="flex items-center justify-between pb-4 mb-4 border-b border-outline-variant/15 text-xs font-mono text-outline">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-[16px] text-secondary">article</span>
+            <span>Comprehensive Findings</span>
+          </div>
+          <span class="text-[10px] bg-surface-container px-2 py-0.5 rounded border border-outline-variant/20">Markdown Parsed</span>
+        </div>
+
+        <!-- Dynamic Report Content inserted here by script.js -->
+        <div id="report-content" class="leading-relaxed">
+          <div class="flex items-center gap-3 py-10 justify-center text-outline font-mono text-sm">
+            <span class="spinner"></span>
+            <span>Loading synthesized research report...</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Critic Score & Feedback Evaluation -->
+      <aside class="flex flex-col gap-5 sticky top-20">
+        
+        <!-- Critic Review Card -->
+        <div class="bg-surface-container-low/90 border border-outline-variant/20 rounded-xl p-5 backdrop-blur-sm relative overflow-hidden shadow-lg">
+          <div class="flex items-center justify-between pb-3 mb-3 border-b border-outline-variant/15">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[18px] text-tertiary">fact_check</span>
+              <h3 class="text-sm font-semibold text-on-surface">Critic Agent Review</h3>
+            </div>
+            <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-tertiary-container/20 text-tertiary border border-tertiary/30">STAGE 04</span>
+          </div>
+
+          <!-- Numeric Score Badge -->
+          <div class="flex items-center justify-between my-3 p-3 rounded-lg bg-surface-container border border-outline-variant/20">
+            <div>
+              <div class="text-[11px] font-mono text-outline uppercase tracking-wider">Quality Score</div>
+              <div class="text-[11px] text-on-surface-variant">Fact-checking & completeness</div>
+            </div>
+            <div id="critic-score" class="text-2xl font-bold font-mono text-primary bg-primary-container/20 px-3 py-1 rounded-lg border border-primary/30">
+              --/10
+            </div>
+          </div>
+
+          <!-- Critic Feedback Body -->
+          <div class="mt-4">
+            <div class="text-[11px] font-mono text-outline uppercase tracking-wider mb-2">Evaluation Notes</div>
+            <div id="critic-feedback" class="text-xs text-on-surface-variant bg-surface-container-lowest/80 p-3.5 rounded-lg border border-outline-variant/15 leading-relaxed font-sans whitespace-pre-wrap">
+              Awaiting critic evaluation feedback...
+            </div>
+          </div>
+        </div>
+
+        <!-- 4-Agent Pipeline Summary Card -->
+        <div class="bg-surface-container-lowest/80 border border-outline-variant/20 rounded-xl p-5 text-xs text-on-surface-variant space-y-2.5">
+          <div class="text-xs font-semibold text-on-surface flex items-center gap-2">
+            <span class="material-symbols-outlined text-[16px] text-primary">account_tree</span>
+            <span>Multi-Agent Swarm</span>
+          </div>
+          <div class="flex items-center justify-between py-1 border-b border-outline-variant/10 text-mono text-[11px]">
+            <span>1. Search Agent</span>
+            <span class="text-secondary">Tavily Web Search</span>
+          </div>
+          <div class="flex items-center justify-between py-1 border-b border-outline-variant/10 text-mono text-[11px]">
+            <span>2. Reader Agent</span>
+            <span class="text-secondary">Page Extraction</span>
+          </div>
+          <div class="flex items-center justify-between py-1 border-b border-outline-variant/10 text-mono text-[11px]">
+            <span>3. Writer Agent</span>
+            <span class="text-primary">Synthesis Model</span>
+          </div>
+          <div class="flex items-center justify-between py-1 text-mono text-[11px]">
+            <span>4. Critic Agent</span>
+            <span class="text-tertiary">Fact-Checking</span>
+          </div>
+        </div>
+
       </aside>
 
     </div>
 
   </main>
 
-  <!-- Global Footer -->
-  <footer class="footer">
-    Collaborative AI Research Platform &copy; 2026 &bull; Multi-Agent Intelligence
-  </footer>
+  <!-- Toast Notification element -->
+  <div id="toast" class="toast"></div>
 
-  <!-- Frontend application logic -->
+  <!-- Main JavaScript integration -->
   <script src="script.js"></script>
 </body>
 </html>

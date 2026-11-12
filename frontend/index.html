@@ -1,146 +1,372 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard & Research | Collaborative AI Research Platform</title>
-  
-  <!-- Main application styles and design system -->
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>ResearchAI - Autonomous Multi-Agent Command Center</title>
+
+  <!-- Google Fonts: Geist & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <!-- Material Symbols Outlined -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary": "#4cd7f6",
+            "on-secondary-fixed": "#001f26",
+            "surface-container-low": "#181b25",
+            "primary-fixed-dim": "#c0c1ff",
+            "secondary-fixed": "#acedff",
+            "inverse-primary": "#494bd6",
+            "on-background": "#dfe2ef",
+            "on-primary-fixed": "#07006c",
+            "background": "#0f131c",
+            "tertiary-fixed-dim": "#d0bcff",
+            "on-secondary-container": "#00424e",
+            "surface": "#0f131c",
+            "on-error-container": "#ffdad6",
+            "on-primary-container": "#0d0096",
+            "on-primary-fixed-variant": "#2f2ebe",
+            "surface-variant": "#31353f",
+            "on-tertiary": "#3c0091",
+            "on-secondary-fixed-variant": "#004e5c",
+            "on-secondary": "#003640",
+            "secondary-container": "#03b5d3",
+            "on-surface": "#dfe2ef",
+            "surface-container-highest": "#31353f",
+            "surface-bright": "#353943",
+            "tertiary-container": "#a078ff",
+            "on-primary": "#1000a9",
+            "primary-fixed": "#e1e0ff",
+            "surface-tint": "#c0c1ff",
+            "surface-dim": "#0f131c",
+            "surface-container-high": "#262a34",
+            "secondary-fixed-dim": "#4cd7f6",
+            "error": "#ffb4ab",
+            "inverse-on-surface": "#2c303a",
+            "surface-container-lowest": "#0a0e17",
+            "on-tertiary-container": "#340080",
+            "outline": "#908fa0",
+            "tertiary-fixed": "#e9ddff",
+            "surface-container": "#1c1f29",
+            "primary-container": "#8083ff",
+            "inverse-surface": "#dfe2ef",
+            "on-error": "#690005",
+            "tertiary": "#d0bcff",
+            "on-tertiary-fixed-variant": "#5516be",
+            "on-surface-variant": "#c7c4d7",
+            "on-tertiary-fixed": "#23005c",
+            "outline-variant": "#464554",
+            "primary": "#c0c1ff",
+            "error-container": "#93000a"
+          },
+          fontFamily: {
+            sans: ["Geist", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Project CSS (custom animations, states, markdown styling) -->
+  <link rel="stylesheet" href="style.css"/>
 </head>
-<body>
+<body class="bg-background text-on-surface antialiased min-h-screen selection:bg-primary-container selection:text-on-primary-container flex flex-col font-sans">
 
   <!-- =========================================================================
-       1. Global Header / Navigation Bar
-       Shows branding logo, active logged-in researcher email, and sign-out button
+       1. Top Navigation Bar (Stitch TopNavBar Component)
        ========================================================================= -->
-  <nav class="navbar">
-    <a href="index.html" class="brand">
-      <div class="brand-icon">🔬</div>
-      <div class="brand-text">ResearchAI</div>
-      <span class="brand-tag">Platform</span>
-    </a>
-    <div class="nav-actions">
-      <!-- Dynamically filled with researcher email from localStorage -->
-      <div class="user-badge">
-        <span class="user-dot"></span>
-        <span id="nav-user-email">Loading...</span>
-      </div>
-      <button id="nav-auth-btn" class="btn btn-secondary btn-sm">Sign Out</button>
+  <header class="bg-surface/80 backdrop-blur-md sticky top-0 z-50 border-b border-outline-variant/20 px-6 h-14 flex justify-between items-center w-full">
+    <!-- Brand -->
+    <div class="flex items-center gap-4">
+      <a href="index.html" class="flex items-center gap-2 text-decoration-none">
+        <div class="w-8 h-8 rounded-lg bg-surface-container-high border border-primary/30 flex items-center justify-center text-primary shadow-[0_0_12px_rgba(99,102,241,0.3)]">
+          <span class="material-symbols-outlined text-[18px]">hub</span>
+        </div>
+        <span class="text-lg font-semibold text-primary tracking-tight">ResearchAI</span>
+        <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-primary-container/20 text-primary border border-primary/30">PLATFORM</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-2 ml-4">
+        <a class="text-primary font-medium border-b-2 border-primary pb-0.5 text-xs font-mono" href="index.html">Workspace</a>
+        <a class="text-on-surface-variant hover:text-on-surface text-xs font-mono px-2 py-1 rounded transition-colors" href="#history-section">Past Reports</a>
+      </nav>
     </div>
-  </nav>
+
+    <!-- Cluster Status & User Session Badge -->
+    <div class="flex items-center gap-3">
+      <div class="hidden lg:flex items-center gap-2 px-2.5 py-1 rounded-full bg-surface-container-lowest border border-outline-variant/30 text-xs font-mono text-on-surface-variant">
+        <span class="w-2 h-2 rounded-full bg-secondary shadow-[0_0_8px_#4cd7f6]"></span>
+        <span>Agents: <span class="text-secondary">4 Online</span></span>
+      </div>
+
+      <!-- User Badge -->
+      <div class="flex items-center gap-2 px-2 py-1 rounded-lg bg-surface-container-high/60 border border-outline-variant/25">
+        <div class="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs">
+          <span class="material-symbols-outlined text-[14px]">person</span>
+        </div>
+        <span id="nav-user-email" class="text-xs font-medium text-on-surface max-w-[150px] truncate">Researcher</span>
+      </div>
+
+      <!-- Auth Action Button (Sign In / Sign Out) -->
+      <button id="nav-auth-btn" class="px-3 py-1.5 rounded-lg bg-surface-container border border-outline-variant/30 text-xs font-medium text-on-surface hover:border-primary/40 transition-colors">
+        Sign Out
+      </button>
+    </div>
+  </header>
 
   <!-- =========================================================================
        2. Main Content Container
        ========================================================================= -->
-  <main class="main-container">
+  <div class="flex flex-1 max-w-7xl mx-auto w-full px-4 md:px-8 py-8 flex-col gap-8">
     
-    <!-- Hero Introduction -->
-    <h1 class="hero-title">Collaborative AI Research</h1>
-    <p class="hero-subtitle">
-      Deploy an autonomous 4-stage multi-agent pipeline (Search, Reader, Writer, and Critic) to synthesize deep, fact-checked research reports.
-    </p>
+    <!-- Hero Header -->
+    <section class="flex flex-col gap-2 max-w-3xl">
+      <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-primary-container/15 border border-primary/30 w-fit">
+        <span class="material-symbols-outlined text-[14px] text-primary">auto_awesome</span>
+        <span class="text-[9px] font-mono text-primary font-semibold tracking-wider uppercase">Autonomous Research Swarm v4.2</span>
+      </div>
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-on-surface bg-gradient-to-r from-on-surface via-primary-fixed-dim to-primary bg-clip-text text-transparent">
+        Collaborative AI Research Platform
+      </h1>
+      <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">
+        Deploy a 4-stage LangGraph multi-agent pipeline (Search, Reader, Writer, and Critic) to synthesize deep, fact-checked technical reports with zero hallucinations.
+      </p>
+    </section>
 
-    <!-- Research Topic Query Submission Card -->
-    <div class="card">
+    <!-- Research Directive Form (Stitch Command-Palette Style) -->
+    <section class="relative bg-surface-container-lowest/90 backdrop-blur-xl rounded-xl border border-outline-variant/30 shadow-[0_4px_24px_-2px_rgba(0,0,0,0.7)] p-6 transition-all focus-within:border-primary focus-within:shadow-[0_0_0_1px_rgba(99,102,241,0.6),0_0_20px_-2px_rgba(99,102,241,0.25)]">
       <form id="research-form">
-        <div class="form-group">
-          <label for="topic-input" style="font-size: 1rem; font-weight: 600; color: #fff; margin-bottom: 0.5rem;">
-            What topic would you like to investigate?
-          </label>
+        <!-- Input Header -->
+        <div class="flex items-center justify-between pb-3 mb-3 border-b border-outline-variant/15 text-xs font-mono">
+          <div class="flex items-center gap-2 text-on-surface-variant">
+            <span class="material-symbols-outlined text-[16px] text-primary">psychology</span>
+            <span>Research Query Directive</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] text-on-surface-variant bg-surface-container px-2 py-0.5 rounded border border-outline-variant/20">4-Agent Consensus Pipeline</span>
+          </div>
+        </div>
+
+        <!-- Textarea -->
+        <div class="relative">
           <textarea 
-            id="topic-input" 
+            id="topic-input"
             rows="3" 
-            required 
-            placeholder="e.g., Quantum Computing breakthroughs in drug discovery, or Next-Gen battery materials 2026..."
-            style="resize: vertical;"
+            required
+            placeholder="e.g., Comparative analysis of DeepSeek-V3 vs Llama 3.3 MoE architecture efficiency, inference latencies, and training compute requirements..."
+            class="w-full bg-transparent border-0 text-on-surface placeholder:text-outline focus:ring-0 text-base resize-y p-0 leading-relaxed outline-none"
           ></textarea>
         </div>
 
-        <div style="display: flex; justify-content: flex-end; margin-top: 1rem;">
-          <button type="submit" id="submit-btn" class="btn btn-primary" style="padding: 0.9rem 2rem; font-size: 1rem;">
-            <span>🚀</span> Run Research Pipeline
+        <!-- Controls & Submit Action -->
+        <div class="mt-4 pt-3 border-t border-outline-variant/15 flex flex-wrap items-center justify-between gap-4">
+          <!-- Toggles -->
+          <div class="flex flex-wrap items-center gap-2 text-xs">
+            <div class="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-surface-container border border-outline-variant/30 text-on-surface">
+              <span class="w-2 h-2 rounded-full bg-secondary shadow-[0_0_6px_#4cd7f6]"></span>
+              <span>Tavily Web Search Active</span>
+            </div>
+            <div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-surface-container border border-outline-variant/30 text-on-surface">
+              <span class="material-symbols-outlined text-[15px] text-primary">verified</span>
+              <span>Critic Verification Enabled</span>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button 
+            type="submit" 
+            id="submit-btn"
+            class="px-5 py-2.5 rounded-lg bg-gradient-to-b from-primary-container to-inverse-primary text-white border border-white/20 font-medium text-sm flex items-center gap-2 shadow-[0_0_16px_rgba(99,102,241,0.35)] hover:shadow-[0_0_22px_rgba(99,102,241,0.55)] active:scale-[0.98] transition-all cursor-pointer"
+          >
+            <span class="material-symbols-outlined text-[18px]">bolt</span>
+            <span>Run Research Pipeline</span>
+          </button>
+        </div>
+
+        <!-- Suggested Prompt Chips -->
+        <div class="mt-4 flex flex-wrap items-center gap-2 pt-2 border-t border-outline-variant/10">
+          <span class="text-[10px] font-mono text-outline uppercase tracking-wider">Suggested:</span>
+          <button type="button" onclick="document.getElementById('topic-input').value = 'KV Cache compression techniques for sub-10ms LLM inference'" class="px-2.5 py-1 rounded-md bg-surface-container/60 hover:bg-surface-variant border border-outline-variant/20 text-xs font-mono text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1.5 cursor-pointer">
+            <span class="material-symbols-outlined text-[14px] text-outline">search</span>
+            KV Cache Compression
+          </button>
+          <button type="button" onclick="document.getElementById('topic-input').value = 'Next-gen solid state battery materials breakthroughs in 2026'" class="px-2.5 py-1 rounded-md bg-surface-container/60 hover:bg-surface-variant border border-outline-variant/20 text-xs font-mono text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1.5 cursor-pointer">
+            <span class="material-symbols-outlined text-[14px] text-outline">search</span>
+            Solid-State Batteries 2026
+          </button>
+          <button type="button" onclick="document.getElementById('topic-input').value = 'Quantum error correction advances in molecular drug discovery'" class="px-2.5 py-1 rounded-md bg-surface-container/60 hover:bg-surface-variant border border-outline-variant/20 text-xs font-mono text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1.5 cursor-pointer">
+            <span class="material-symbols-outlined text-[14px] text-outline">search</span>
+            Quantum Drug Discovery
           </button>
         </div>
       </form>
-    </div>
+    </section>
 
     <!-- =======================================================================
-         3. Live Multi-Agent Execution Progress Tracker
-         Displays animated status cards for each agent in the LangGraph pipeline
+         3. Live Multi-Agent Pipeline Tracker (Shown during execution)
          ======================================================================= -->
-    <div id="progress-card" class="progress-card">
-      <div class="progress-header">
-        <div style="display: flex; align-items: center; gap: 0.75rem;">
-          <span class="spinner"></span>
-          <h3 style="font-size: 1.2rem;">Multi-Agent Pipeline Executing...</h3>
+    <section id="progress-card" style="display: none;" class="flex flex-col gap-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-[20px] text-primary">linear_scale</span>
+          <h2 class="text-lg font-semibold text-on-surface">Live Multi-Agent Pipeline Tracker</h2>
+          <span class="text-[10px] font-mono bg-secondary/10 text-secondary border border-secondary/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
+            Pipeline Executing...
+          </span>
         </div>
-        <span style="font-size: 0.85rem; color: var(--text-muted);">Please wait while agents collaborate</span>
+        <div class="flex items-center gap-2 text-xs font-mono text-on-surface-variant">
+          <span>Please wait while agents collaborate</span>
+        </div>
       </div>
 
-      <div class="agent-steps">
-        <!-- Stage 1: Tavily Web Search Agent -->
-        <div id="step-search" class="agent-step">
-          <div class="step-icon">🔍</div>
-          <div class="step-info">
-            <span class="step-name">1. Search Agent</span>
-            <span class="step-desc">Tavily Web Search</span>
+      <!-- 4-Stage Bento Flow Diagram -->
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 relative">
+        
+        <!-- Stage 1: Search Agent -->
+        <div id="step-search" class="agent-step rounded-xl p-4 flex flex-col justify-between overflow-hidden border">
+          <div class="step-top-line absolute top-0 left-0 w-full h-[2px]"></div>
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[10px] font-mono text-outline uppercase tracking-wider">STAGE 01</span>
+              <span class="step-status-badge">SEARCHING</span>
+            </div>
+            <div class="flex items-center gap-2.5 mb-2">
+              <div class="w-8 h-8 rounded-lg bg-surface-container-high border border-outline-variant/30 flex items-center justify-center text-secondary">
+                <span class="material-symbols-outlined text-[18px]">travel_explore</span>
+              </div>
+              <div>
+                <h3 class="text-sm font-semibold text-on-surface">Search Agent</h3>
+                <div class="text-[11px] text-on-surface-variant">Tavily Web Search</div>
+              </div>
+            </div>
+            <p class="text-xs text-on-surface-variant mt-2 leading-relaxed">
+              Querying search indexes and locating top academic and industry sources.
+            </p>
+          </div>
+          <div class="mt-3 pt-2 border-t border-outline-variant/15 flex items-center justify-between text-xs font-mono text-outline">
+            <span>Stage 1 of 4</span>
+            <span class="text-secondary font-medium">Tavily API</span>
           </div>
         </div>
 
-        <!-- Stage 2: Deep Web Scraper / Reader Agent -->
-        <div id="step-reader" class="agent-step">
-          <div class="step-icon">📖</div>
-          <div class="step-info">
-            <span class="step-name">2. Reader Agent</span>
-            <span class="step-desc">Deep Page Scraping</span>
+        <!-- Stage 2: Reader Agent -->
+        <div id="step-reader" class="agent-step rounded-xl p-4 flex flex-col justify-between overflow-hidden border">
+          <div class="step-top-line absolute top-0 left-0 w-full h-[2px]"></div>
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[10px] font-mono text-outline uppercase tracking-wider">STAGE 02</span>
+              <span class="step-status-badge">WAITING</span>
+            </div>
+            <div class="flex items-center gap-2.5 mb-2">
+              <div class="w-8 h-8 rounded-lg bg-surface-container-high border border-outline-variant/30 flex items-center justify-center text-secondary">
+                <span class="material-symbols-outlined text-[18px]">document_scanner</span>
+              </div>
+              <div>
+                <h3 class="text-sm font-semibold text-on-surface">Reader Agent</h3>
+                <div class="text-[11px] text-on-surface-variant">Deep Page Scraping</div>
+              </div>
+            </div>
+            <p class="text-xs text-on-surface-variant mt-2 leading-relaxed">
+              Scraping discovered pages and extracting clean raw context for synthesis.
+            </p>
+          </div>
+          <div class="mt-3 pt-2 border-t border-outline-variant/15 flex items-center justify-between text-xs font-mono text-outline">
+            <span>Stage 2 of 4</span>
+            <span class="text-secondary font-medium">Extraction</span>
           </div>
         </div>
 
-        <!-- Stage 3: LLM Synthesis / Writer Agent -->
-        <div id="step-writer" class="agent-step">
-          <div class="step-icon">✍️</div>
-          <div class="step-info">
-            <span class="step-name">3. Writer Chain</span>
-            <span class="step-desc">Report Synthesis</span>
+        <!-- Stage 3: Writer Agent -->
+        <div id="step-writer" class="agent-step rounded-xl p-4 flex flex-col justify-between overflow-hidden border">
+          <div class="step-top-line absolute top-0 left-0 w-full h-[2px]"></div>
+          <div class="data-flow-pulse top-0 left-0"></div>
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[10px] font-mono text-outline uppercase tracking-wider">STAGE 03</span>
+              <span class="step-status-badge">WAITING</span>
+            </div>
+            <div class="flex items-center gap-2.5 mb-2">
+              <div class="w-8 h-8 rounded-lg bg-surface-container-high border border-outline-variant/30 flex items-center justify-center text-primary">
+                <span class="material-symbols-outlined text-[18px]">edit_note</span>
+              </div>
+              <div>
+                <h3 class="text-sm font-semibold text-on-surface">Writer Agent</h3>
+                <div class="text-[11px] text-on-surface-variant">LLM Synthesis</div>
+              </div>
+            </div>
+            <p class="text-xs text-on-surface-variant mt-2 leading-relaxed">
+              Synthesizing scraped evidence into a coherent structured technical report.
+            </p>
+          </div>
+          <div class="mt-3 pt-2 border-t border-outline-variant/15 flex items-center justify-between text-xs font-mono text-outline">
+            <span>Stage 3 of 4</span>
+            <span class="text-primary font-medium">Synthesis</span>
           </div>
         </div>
 
-        <!-- Stage 4: Peer Review / Critic Agent -->
-        <div id="step-critic" class="agent-step">
-          <div class="step-icon">⚖️</div>
-          <div class="step-info">
-            <span class="step-name">4. Critic Chain</span>
-            <span class="step-desc">Peer Review & Scoring</span>
+        <!-- Stage 4: Critic Agent -->
+        <div id="step-critic" class="agent-step rounded-xl p-4 flex flex-col justify-between overflow-hidden border">
+          <div class="step-top-line absolute top-0 left-0 w-full h-[2px]"></div>
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[10px] font-mono text-outline uppercase tracking-wider">STAGE 04</span>
+              <span class="step-status-badge">WAITING</span>
+            </div>
+            <div class="flex items-center gap-2.5 mb-2">
+              <div class="w-8 h-8 rounded-lg bg-surface-container-high border border-outline-variant/30 flex items-center justify-center text-outline">
+                <span class="material-symbols-outlined text-[18px]">fact_check</span>
+              </div>
+              <div>
+                <h3 class="text-sm font-semibold text-on-surface">Critic Agent</h3>
+                <div class="text-[11px] text-on-surface-variant">Fact-Check & Review</div>
+              </div>
+            </div>
+            <p class="text-xs text-on-surface-variant mt-2 leading-relaxed">
+              Evaluating report completeness, checking contradictions, and scoring quality.
+            </p>
+          </div>
+          <div class="mt-3 pt-2 border-t border-outline-variant/15 flex items-center justify-between text-xs font-mono text-outline">
+            <span>Stage 4 of 4</span>
+            <span class="text-outline font-medium">Verification</span>
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- =======================================================================
-         4. Research History Section
-         Dynamically populates previous queries and generated reports from PostgreSQL
-         ======================================================================= -->
-    <section class="history-section">
-      <h2 style="font-size: 1.35rem; margin-bottom: 0.5rem;">Your Research History</h2>
-      <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1rem;">
-        View your saved research requests and reports from PostgreSQL.
-      </p>
-
-      <!-- History cards injected here via script.js -->
-      <div id="history-list" class="history-list">
-        <div style="color: var(--text-faint); font-size: 0.9rem;">Loading history...</div>
       </div>
     </section>
 
-  </main>
+    <!-- =======================================================================
+         4. Recent Research History Section
+         ======================================================================= -->
+    <section id="history-section" class="flex flex-col gap-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-[20px] text-primary">history</span>
+          <h2 class="text-lg font-semibold text-on-surface">Past Research Reports</h2>
+        </div>
+      </div>
 
-  <!-- Global Footer -->
-  <footer class="footer">
-    Collaborative AI Research Platform &copy; 2026 &bull; FastAPI &bull; PostgreSQL &bull; LangGraph
-  </footer>
+      <!-- History List dynamically filled by script.js -->
+      <div id="history-list" class="flex flex-col gap-2.5">
+        <p class="text-sm text-outline font-mono">Loading previous research requests...</p>
+      </div>
+    </section>
 
-  <!-- Frontend application logic -->
+  </div>
+
+  <!-- Toast Notification element -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Main JavaScript integration -->
   <script src="script.js"></script>
 </body>
 </html>

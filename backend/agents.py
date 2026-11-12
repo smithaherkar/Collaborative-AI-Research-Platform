@@ -11,24 +11,37 @@ Architecture:
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-from langchain_openai import ChatOpenAI
+
+from langchain_mistralai import ChatMistralAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langgraph.prebuilt import create_react_agent as create_agent
+
 from tools import web_search, scrape_url
+
 
 # Load environment configuration
 env_root = Path(__file__).resolve().parent.parent / ".env"
+
 if env_root.exists():
     load_dotenv(dotenv_path=env_root)
 else:
     load_dotenv()
 
-openai_api_key = os.getenv("OPENAI_API_KEY") or "sk-placeholder-key-for-initialization"
 
-# Shared OpenAI chat model instance (temperature=0 ensures factual consistency)
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0, api_key=openai_api_key)
+# Get Mistral API key
+mistral_api_key = os.getenv("MISTRAL_API_KEY")
 
+if not mistral_api_key:
+    raise ValueError("MISTRAL_API_KEY is not set in your .env file")
+
+
+# Shared Mistral chat model
+llm = ChatMistralAI(
+    model="ministral-8b-latest",
+    temperature=0,
+    api_key=mistral_api_key,
+)
 
 # ---------------------------------------------------------------------------
 # 1. Search Agent
