@@ -5,18 +5,17 @@
 [![LangGraph](https://img.shields.io/badge/LangGraph-FF4F00?style=for-the-badge)](https://langchain-ai.github.io/langgraph/)
 [![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-D71F00?style=for-the-badge&logo=sqlalchemy&logoColor=white)](https://www.sqlalchemy.org)
 [![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 > **An end-to-end autonomous research engine that coordinates specialized AI agents to discover, scrape, synthesize, and peer-review deep technical reports with zero manual overhead.**
 
 ---
 
-### 📊 Performance & Unit Economics
+### 📊 Performance & Key Metrics
 
-| Average Latency | Cost Per Report | Average Quality Score | Manual Effort Saved |
-| :---: | :---: | :---: | :---: |
-| **~92 seconds** | **~$0.007** | **7.8 / 10** | **~35 mins / query** |
-| Complete 4-stage pipeline run | LLM compute + search credits | Strict automated critic review | Replaces 15+ browser tabs |
+| Average Latency | Average Quality Score | Manual Effort Saved |
+| :---: | :---: | :---: |
+| **~92 seconds** | **7.8 / 10** | **~35 mins / query** |
+| Complete 4-stage pipeline run | Strict automated critic review | Replaces 15+ browser tabs |
 
 ---
 
@@ -94,14 +93,14 @@ Every report is automatically graded by an independent Critic prompt that scores
 
 The pipeline was evaluated across 5 diverse research domains:
 
-| # | Topic Domain | Latency | Report Length | Cost (Tokens + Search) | Critic Score |
-|---|--------------|:-------:|:-------------:|:---------------------:|:------------:|
-| 1 | **Chemistry**: *Redox Reactions & Half-Cell Potential* | **78s** | 1,550 words | ~$0.0067 | **8.5 / 10** |
-| 2 | **Entertainment**: *Beast Games & High-Stakes Reality* | **85s** | 1,600 words | ~$0.0068 | **7.5 / 10** |
-| 3 | **Career & Tech**: *Data Analyst Job Market & Skills* | **137s** | 2,500 words | ~$0.0076 | **7.5 / 10** |
-| 4 | **AI Architecture**: *KV Cache Compression in LLMs* | **82s** | 1,700 words | ~$0.0069 | **8.0 / 10** |
-| 5 | **Materials Science**: *Solid-State Battery Breakthroughs* | **79s** | 1,620 words | ~$0.0068 | **7.5 / 10** |
-| **Avg** | **Overall System Average** | **~92s** | **~1,794 words** | **~$0.007** | **7.8 / 10** |
+| # | Topic Domain | Latency | Report Length | Critic Score |
+|---|--------------|:-------:|:-------------:|:------------:|
+| 1 | **Chemistry**: *Redox Reactions & Half-Cell Potential* | **78s** | 1,550 words | **8.5 / 10** |
+| 2 | **Entertainment**: *Beast Games & High-Stakes Reality* | **85s** | 1,600 words | **7.5 / 10** |
+| 3 | **Career & Tech**: *Data Analyst Job Market & Skills* | **137s** | 2,500 words | **7.5 / 10** |
+| 4 | **AI Architecture**: *KV Cache Compression in LLMs* | **82s** | 1,700 words | **8.0 / 10** |
+| 5 | **Materials Science**: *Solid-State Battery Breakthroughs* | **79s** | 1,620 words | **7.5 / 10** |
+| **Avg** | **Overall System Average** | **~92s** | **~1,794 words** | **7.8 / 10** |
 
 ---
 
@@ -217,8 +216,3 @@ Execute the automated test suite covering authentication, database persistence, 
 cd backend
 pytest test_api.py -v
 ```
-
----
-
-## 📄 License
-This project is licensed under the **MIT License** — feel free to use and adapt it for your own research and applications.
